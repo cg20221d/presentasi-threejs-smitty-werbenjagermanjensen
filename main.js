@@ -159,8 +159,8 @@ plFolder.addColor(plSettings, "color").onChange((value) => pl.color.set(value));
 const ral = new THREE.RectAreaLight(0xffffff, 1, 8, 4);
 const ralHelper = new RectAreaLightHelper(ral);
 
-ral.position.set(5,5,0);
-ral.lookAt(0,0,0);
+ral.position.set(5, 0, 0);
+ral.lookAt(0, 0, 0);
 ralHelper.visible = false;
 
 scene.add(ral);
@@ -176,13 +176,16 @@ ralFolder.add(ralSettings, "visible").onChange((value) => {
   ralHelper.visible = value;
 });
 ralFolder.add(ral, "intensity", 0, 4, 0.01);
-ralFolder.add(ral.position, "x", -2, 4, 0.1);
-ralFolder.add(ral.position, "y", -2, 4, 0.1);
-ralFolder.add(ral.position, "z", -2, 4, 0.1);
-ralFolder.addColor(ralSettings, "color").onChange((value) => ral.color.set(value));
+ralFolder.add(ral, "width", 0, 10, 0.1);
+ralFolder.add(ral, "height", 0, 10, 0.1);
+ralFolder.add(ral.position, "x", -8, 8, 0.1);
+ralFolder.add(ral.position, "y", -8, 8, 0.1);
+ralFolder.add(ral.position, "z", -8, 8, 0.1);
+ralFolder
+  .addColor(ralSettings, "color")
+  .onChange((value) => ral.color.set(value));
 
 // #endregion
-
 
 function animate() {
   requestAnimationFrame(animate);
