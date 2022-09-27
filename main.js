@@ -2,6 +2,8 @@ import "./assets/scss/style.scss";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GUI } from "dat.gui";
+import { RectAreaLightHelper } from "./RectAreaLightHelper";
+// import { RectAreaLightHelper } from "./RectAreaLightHelper";
 
 const gui = new GUI();
 const canvas = document.querySelector("canvas");
@@ -23,7 +25,11 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 // #region Shapes
 const planeGeometry = new THREE.BoxGeometry(30, 0.1, 30);
-const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+const planeMaterial = new THREE.MeshStandardMaterial({
+  color: 0xaaaaaa,
+  roughness: 0.1,
+  metalness: 0,
+});
 const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
 planeMesh.receiveShadow = true;
 planeMesh.castShadow = false;
@@ -147,6 +153,37 @@ plFolder.add(pl.position, "y", -2, 4, 0.1);
 plFolder.add(pl.position, "z", -2, 4, 0.1);
 plFolder.add(pl, "castShadow");
 plFolder.addColor(plSettings, "color").onChange((value) => pl.color.set(value));
+
+// #endregion
+// #region Rectangle Light
+const ral = new THREE.RectAreaLight(0xffffff, 1, 8, 4);
+const ralHelper = new RectAreaLightHelper(ral);
+
+ral.position.set(5, 0, 0);
+ral.lookAt(0, 0, 0);
+ralHelper.visible = false;
+
+scene.add(ral);
+ral.add(ralHelper);
+
+const ralSettings = {
+  visible: false,
+  color: ral.color.getHex(),
+};
+const ralFolder = gui.addFolder("rectangle area light");
+ralFolder.add(ralSettings, "visible").onChange((value) => {
+  ral.visible = value;
+  ralHelper.visible = value;
+});
+ralFolder.add(ral, "intensity", 0, 4, 0.01);
+ralFolder.add(ral, "width", 0, 10, 0.1);
+ralFolder.add(ral, "height", 0, 10, 0.1);
+ralFolder.add(ral.position, "x", -8, 8, 0.1);
+ralFolder.add(ral.position, "y", -8, 8, 0.1);
+ralFolder.add(ral.position, "z", -8, 8, 0.1);
+ralFolder
+  .addColor(ralSettings, "color")
+  .onChange((value) => ral.color.set(value));
 
 // #endregion
 
