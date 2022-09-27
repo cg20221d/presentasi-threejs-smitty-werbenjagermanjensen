@@ -52,8 +52,22 @@ alFolder.open();
 
 // #endregion
 
+// #region Hemisphere light
+const hl = new THREE.HemisphereLight(0xff0000, 0x0000ff, 0.5);
+hl.visible = false;
+scene.add(hl);
 
-camera.position.z = 5;
+const hlFolder = gui.addFolder("hemisphere light");
+const skyColor = { color: hl.color.getHex() };
+const groundColor = { color: hl.groundColor.getHex() };
+hlFolder.add(hl, "visible");
+hlFolder.addColor(skyColor, "color").onChange((value) => hl.color.set(value));
+hlFolder
+  .addColor(groundColor, "color")
+  .onChange((value) => hl.groundColor.set(value));
+
+// #endregion
+
 
 function animate() {
   requestAnimationFrame(animate);
