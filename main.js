@@ -68,6 +68,34 @@ hlFolder
 
 // #endregion
 
+// #region Directional Light
+const dl = new THREE.DirectionalLight(0xffffff, 0.5);
+const dlHelper = new THREE.DirectionalLightHelper(dl, 3);
+
+dl.position.set(0, 2, 0);
+dl.visible = false;
+dl.castShadow = true;
+dlHelper.visible = false;
+
+scene.add(dl);
+scene.add(dlHelper);
+
+const dlSettings = {
+  visible: false,
+  color: dl.color.getHex(),
+};
+const dlFolder = gui.addFolder("directional light");
+dlFolder.add(dlSettings, "visible").onChange((value) => {
+  dl.visible = value;
+  dlHelper.visible = value;
+});
+dlFolder.add(dl, "intensity", 0, 1, 0.01);
+dlFolder.add(dl.position, "y", 1, 4, 0.5);
+dlFolder.add(dl, "castShadow");
+dlFolder.addColor(dlSettings, "color").onChange((value) => dl.color.set(value));
+
+// #endregion
+
 
 function animate() {
   requestAnimationFrame(animate);
