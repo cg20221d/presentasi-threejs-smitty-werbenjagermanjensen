@@ -96,6 +96,32 @@ dlFolder.addColor(dlSettings, "color").onChange((value) => dl.color.set(value));
 
 // #endregion
 
+// #region Spot Light
+const sl = new THREE.SpotLight(0xffffff, 1, 12, Math.PI / 8, 0.5);
+const slHelper = new THREE.SpotLightHelper(sl);
+
+sl.visible = false;
+sl.position.set(0, 6, 0);
+sl.target.position.set(0, 0, 0);
+slHelper.visible = false;
+
+scene.add(sl, slHelper);
+
+const slSettings = {
+  visible: false,
+};
+const slFolder = gui.addFolder("spot light");
+slFolder.add(slSettings, "visible").onChange((value) => {
+  sl.visible = value;
+  slHelper.visible = value;
+});
+slFolder.add(sl, "intensity", 0, 4, 0.1);
+slFolder.add(sl, "penumbra", 0, 1, 0.1);
+slFolder.add(sl, "angle", Math.PI / 16, Math.PI / 2, 0.01);
+slFolder.add(sl, "castShadow");
+
+// #endregion
+
 
 function animate() {
   requestAnimationFrame(animate);
