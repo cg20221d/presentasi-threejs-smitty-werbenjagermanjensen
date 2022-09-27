@@ -23,7 +23,11 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 // #region Shapes
 const planeGeometry = new THREE.BoxGeometry(30, 0.1, 30);
-const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+const planeMaterial = new THREE.MeshPhongMaterial({
+  color: 0xaaaaaa,
+  shininess: 100,
+  specular: 0x050505,
+});
 const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
 planeMesh.receiveShadow = true;
 planeMesh.castShadow = false;
