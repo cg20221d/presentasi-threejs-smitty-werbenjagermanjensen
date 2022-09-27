@@ -39,8 +39,19 @@ scene.add(sphereMesh);
 
 // #endregion
 
-const light = new THREE.AmbientLight(0x404040); // soft white light
-scene.add(light);
+// #region Ambient light
+const al = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(al);
+
+const alFolder = gui.addFolder("Ambient light");
+const alSettings = { color: al.color.getHex() };
+alFolder.add(al, "visible");
+alFolder.add(al, "intensity", 0, 1, 0.01);
+alFolder.addColor(alSettings, "color").onChange((value) => al.color.set(value));
+alFolder.open();
+
+// #endregion
+
 
 camera.position.z = 5;
 
