@@ -33,3 +33,5 @@ Berbeda dengan directional light yang memiliki posisi sangat jauh/infinit, point
 ### Spot Light
 Cahaya ini dipancarkan dari satu titik dalam satu arah sehingga berbentuk menyerupai kerucut yang ukurannya semakin jauh dari cahaya semakin besar area yang dikenai cahaya namun intensitasnya semakin berkurang.
 
+[Lighting in Three.js.pdf](https://github.com/cg20221d/presentasi-threejs-smitty-werbenjagermanjensen/files/9658497/Lighting.in.Three.js.pdf)
+
