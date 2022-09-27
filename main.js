@@ -122,6 +122,33 @@ slFolder.add(sl, "castShadow");
 
 // #endregion
 
+// #region Point Light
+const pl = new THREE.PointLight(0xffffff, 1, 8, 2);
+const plHelper = new THREE.PointLightHelper(pl, 0.5);
+
+pl.position.set(2, 2, 2);
+pl.visible = false;
+plHelper.visible = false;
+
+scene.add(pl, plHelper);
+
+const plSettings = {
+  visible: false,
+  color: pl.color.getHex(),
+};
+const plFolder = gui.addFolder("point light");
+plFolder.add(plSettings, "visible").onChange((value) => {
+  pl.visible = value;
+  plHelper.visible = value;
+});
+plFolder.add(pl, "intensity", 0, 2, 0.01);
+plFolder.add(pl.position, "x", -2, 4, 0.1);
+plFolder.add(pl.position, "y", -2, 4, 0.1);
+plFolder.add(pl.position, "z", -2, 4, 0.1);
+plFolder.add(pl, "castShadow");
+plFolder.addColor(plSettings, "color").onChange((value) => pl.color.set(value));
+
+// #endregion
 
 function animate() {
   requestAnimationFrame(animate);
